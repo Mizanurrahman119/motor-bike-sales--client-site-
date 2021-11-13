@@ -14,7 +14,7 @@ import Login from "./Pages/Login/Login/Login";
 import Register from "./Pages/Login/Register/Register";
 import AuthProvider from "./Contexts/AuthProvider/AuthProvider";
 import PrivateRoute from "./Pages/Login/PrivateRoute/PrivateRoute";
-// import Manages from "./Pages/Manages/Manages/Manages";
+import Dashboarded from "./Pages/Dashboarded/Dashboarded/Dashboarded"
 
 function App() {
   return (
@@ -38,6 +38,10 @@ function App() {
 
           <PrivateRoute path="/explores">
             <Explores />
+          </PrivateRoute>
+
+          <PrivateRoute path="/dashboard">
+            <Dashboarded />
           </PrivateRoute>
 
           <Route path="/home">

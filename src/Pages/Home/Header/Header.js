@@ -3,6 +3,7 @@ import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './Header.css'
 import useAuth from '../../../Hooks/useAuth'
+import { Box } from '@mui/system';
 
 const Header = () => {
     const {user, logout} = useAuth()
@@ -17,11 +18,12 @@ const Header = () => {
 
                     <Link style={{margin:'10px', textDecoration:'none', fontSize:'20px',fontWeight:'bold'}} to="/explores">Explores</Link>
 
-                    <Link style={{margin:'10px', textDecoration:'none', fontSize:'20px',fontWeight:'bold'}} to="/dashboard">Dashboard</Link>
-
                     {
                         user?.email ? 
-                        <button className='logout-btn' onClick={logout} style={{margin:'10px', textDecoration:'none', fontSize:'20px',fontWeight:'bold'}} >Logout</button>
+                        <Box>
+                            <Link style={{margin:'10px', textDecoration:'none', fontSize:'20px',fontWeight:'bold'}} to="/dashboard">Dashboard</Link>
+                            <button className='logout-btn' onClick={logout} style={{margin:'10px', textDecoration:'none', fontSize:'20px',fontWeight:'bold'}} >Logout</button>
+                        </Box>
                         :
                         <Link style={{margin:'10px', textDecoration:'none', fontSize:'20px',fontWeight:'bold'}} to="login">Login</Link>
                     }

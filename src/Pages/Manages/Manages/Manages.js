@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
@@ -21,11 +21,40 @@ const style = {
 const Manages = ({purchaseOpen, handlePurchaseClose, service}) => {
     const {name, cc, price} = service;
 
-    const {user} = useAuth()
+    const {user} = useAuth();
+
+    const initialPurchase = {userName: user.name, userEmail: user.email, userPhone: ''}
+    const [purchaseInfo, setPurchaseInfo] = useState(initialPurchase);
+
+    const handleOnBlur = e => {
+      const field = e.target.name;
+      const value = e.target.value;
+      const newPurchase = {...purchaseInfo};
+      newPurchase[field] = value;
+      console.log(newPurchase);
+      setPurchaseInfo(newPurchase);
+    }
 
     const handlePurchaseSubmit = e => {
-        alert('submit successfully');
-        handlePurchaseClose();
+        const purchases = {
+          ...purchaseInfo,
+          bikeName: name,
+          bikePrice: price,
+          bikeCc: cc
+        }
+        fetch('http://localhost:5000/purchase', {
+          method: 'POST',
+          headers: {
+            'content-type' : 'application/json'
+          },
+          body: JSON.stringify(purchases)
+        })
+        .then(res => res.json())
+        .then(data => {
+          if(data.insertedId) {
+            handlePurchaseClose();
+          }
+        });
         e.preventDefault();
     }
 
@@ -46,6 +75,7 @@ const Manages = ({purchaseOpen, handlePurchaseClose, service}) => {
               disabled
               sx={{width:'90%', my:1}}
               id='outline-size-small'
+              name='bikeName'
               defaultValue={name}
               size='small'
               />
@@ -54,6 +84,7 @@ const Manages = ({purchaseOpen, handlePurchaseClose, service}) => {
               sx={{width:'90%',my:1}}
               id='outline-size-small'
               defaultValue={price}
+              name='bikePrice'
               size='small'
               />
               <TextField
@@ -61,24 +92,31 @@ const Manages = ({purchaseOpen, handlePurchaseClose, service}) => {
               sx={{width:'90%',my:1}}
               id='outline-size-small'
               defaultValue={cc}
+              name='bikeCc'
               size='small'
               />
               <TextField
               sx={{width:'90%',my:1}}
               id='outline-size-small'
+              onBlur={handleOnBlur}
               defaultValue={user.displayName}
+              name='userName'
               size='small'
               />
               <TextField
               sx={{width:'90%',my:1}}
               id='outline-size-small'
+              onBlur={handleOnBlur}
               defaultValue={user.email}
+              name='userEmail'
               size='small'
               />
               <TextField
               sx={{width:'90%',my:1}} 
               id="outlined-search" 
-              label="your phone number" 
+              onBlur={handleOnBlur}
+              label="your phone number"
+              name='userPhone' 
               type="phone" 
               />
               <Button type='submit' variant='contained'>Confirm Now</Button>
