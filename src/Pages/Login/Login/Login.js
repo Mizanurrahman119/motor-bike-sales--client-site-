@@ -1,10 +1,16 @@
-import { Button, Container, Grid, TextField, Typography } from '@mui/material';
+import { Alert, Button, CircularProgress, Container, Grid, TextField, Typography } from '@mui/material';
 // import Button from '@restart/ui/esm/Button';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
+import useAuth from '../../../Hooks/useAuth';
 
 const Login = () => {
-    const [loginData, setLoginData ] = useState({})
+    const [loginData, setLoginData ] = useState({});
+    const {user, signInWithGoogle, loginUser, isLoading, authError} = useAuth();
+
+    const location = useLocation();
+    const history = useHistory();
+
     const handleOnchange = e => {
         const  field = e.target.name;
         const value = e.target.value;
@@ -13,14 +19,18 @@ const Login = () => {
         setLoginData(newLogInData);   
     }
     const handleLoginSubmit = e => {
-        alert('submited email')
+        loginUser(loginData.email, loginData.password, location, history);
         e.preventDefault();
+    }
+
+    const handleGoogleSignIn = () => {
+        signInWithGoogle(location, history)
     }
     return (
         <Container>
             <Grid container spacing={2}>
                 <Grid item sx={{my: 8}} xs={12}>
-                  <form onSubmit={handleLoginSubmit}>  
+                  {!isLoading && <form onSubmit={handleLoginSubmit}>  
                     <Typography variant="h4" gutterBottom>Please Login</Typography>
                     <TextField
                     sx={{width:'50%',my:1}}
@@ -44,7 +54,14 @@ const Login = () => {
                     <br /> <br />
                     <Link to='/register' style={{textDecoration:'none'}}><Button variant='text'>New User? Please Registe !</Button>
                     </Link>
-                  </form>
+                  </form>}
+                  
+                  {isLoading && <CircularProgress></CircularProgress>}
+                  {user?.email && <Alert security='Success'>User Login Successful</Alert>}
+                  {authError &&<Alert severity="error">{authError}</Alert>}
+
+                  <p>-----------------------</p>
+                  <Button onClick={handleGoogleSignIn} style={{paddingLeft: '20px', paddingRight: '20px', paddingTop:'5px', paddingBottom:'5px', backgroundColor:'#34FD99', border:'none', fontSize:'16px', borderRadius:'5px'}} sx={{my:1,}} type='submit' variant='contined'>Google Sign In</Button>
                 </Grid>
             </Grid>
         </Container>

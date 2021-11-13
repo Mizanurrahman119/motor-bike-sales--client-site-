@@ -37,8 +37,8 @@ const Explores = () => {
                          <h3 className='explores-content'>{explore.cc}</h3>
                          <h4 className='explores-content'>Price: {explore.price}</h4>
                          <h5 className='explores-content'>{explore.details}</h5>
-                         <Link to='/manages'>
-                            <button className='explores-btn'>Purchase Now</button>
+                         <Link to='/addedservice'>
+                            <button className='explores-btn'>Service Add</button>
                          </Link>
                         <button className='explores-btn' onClick={() => handleDelete(explore._id)}>Delete</button>
 

@@ -13,6 +13,7 @@ import Explores from "./Pages/Shared/Explores/Explores";
 import Login from "./Pages/Login/Login/Login";
 import Register from "./Pages/Login/Register/Register";
 import AuthProvider from "./Contexts/AuthProvider/AuthProvider";
+import PrivateRoute from "./Pages/Login/PrivateRoute/PrivateRoute";
 // import Manages from "./Pages/Manages/Manages/Manages";
 
 function App() {
@@ -35,9 +36,9 @@ function App() {
             <AddService></AddService>
           </Route>
 
-          <Route path="/explores">
+          <PrivateRoute path="/explores">
             <Explores />
-          </Route>
+          </PrivateRoute>
 
           <Route path="/home">
             <Home />

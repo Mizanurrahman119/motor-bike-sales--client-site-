@@ -1,9 +1,13 @@
-import { Button, Container, Grid, TextField, Typography } from '@mui/material';
+import { Alert, Button, CircularProgress, Container, Grid, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import useAuth from '../../../Hooks/useAuth';
 
 const Register = () => {
-    const [loginData, setLoginData ] = useState({})
+    const [loginData, setLoginData ] = useState({});
+    const history = useHistory();
+
+    const {registerUser, isLoading, user, authError} = useAuth()
     const handleOnchange = e => {
         const  field = e.target.name;
         const value = e.target.value;
@@ -12,17 +16,18 @@ const Register = () => {
         setLoginData(newLogInData);  
     }
     const handleLoginSubmit = e => {
-        if(loginData.password1 !== loginData.password2){
+        if(loginData.password !== loginData.password2){
             alert('password did not match!');
             return
         }
+            registerUser(loginData.email, loginData.password, loginData.name, history)
             e.preventDefault();
     }
     return (
         <Container>
             <Grid container spacing={2}>
                 <Grid item sx={{my: 8}} xs={12}>
-                  <form onSubmit={handleLoginSubmit}>  
+                  { !isLoading && <form onSubmit={handleLoginSubmit}>  
                     <Typography variant="h4" gutterBottom>Please Register</Typography>
                     <TextField
                     sx={{width:'50%',my:1}}
@@ -42,7 +47,7 @@ const Register = () => {
                     /> <br />
                     <TextField
                     sx={{width:'50%',my:1}} 
-                    name='password1'
+                    name='password'
                     onChange={handleOnchange}
                     id="outlined-search" 
                     label="new password" 
@@ -63,7 +68,10 @@ const Register = () => {
                     <Link to='/login' style={{textDecoration:'none'}}>
                         <Button variant='text'>Already User? Please Login</Button>
                     </Link>
-                  </form>
+                  </form>}
+                  {isLoading && <CircularProgress></CircularProgress>}
+                  {user?.email && <Alert security='Success'>Account Created Successful</Alert>}
+                  {authError &&<Alert severity="error">{authError}</Alert>}
                 </Grid>
             </Grid>
         </Container>

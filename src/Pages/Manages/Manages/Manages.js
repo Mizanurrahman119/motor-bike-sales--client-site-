@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { TextField } from '@mui/material';
 import { Button } from '@mui/material';
+import useAuth from '../../../Hooks/useAuth';
 
 const style = {
   position: 'absolute',
@@ -19,6 +20,8 @@ const style = {
 
 const Manages = ({purchaseOpen, handlePurchaseClose, service}) => {
     const {name, cc, price} = service;
+
+    const {user} = useAuth()
 
     const handlePurchaseSubmit = e => {
         alert('submit successfully');
@@ -60,17 +63,17 @@ const Manages = ({purchaseOpen, handlePurchaseClose, service}) => {
               defaultValue={cc}
               size='small'
               />
-              <TextField 
+              <TextField
               sx={{width:'90%',my:1}}
-              id="outlined-search" 
-              label="your name" 
-              type="name" 
+              id='outline-size-small'
+              defaultValue={user.displayName}
+              size='small'
               />
-              <TextField 
+              <TextField
               sx={{width:'90%',my:1}}
-              id="outlined-search" 
-              label="your valid email" 
-              type="email" 
+              id='outline-size-small'
+              defaultValue={user.email}
+              size='small'
               />
               <TextField
               sx={{width:'90%',my:1}} 
