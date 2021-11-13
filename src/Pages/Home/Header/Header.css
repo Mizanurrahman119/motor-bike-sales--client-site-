@@ -1,0 +1,17 @@
+.header-container{
+    background-color: darksalmon;
+    padding: 15px 0px 10px 0px;
+}
+.button-container{
+    padding-top: 20px;
+    padding-bottom: 10px;
+    padding-right: 50px;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+.web-name{
+    padding-top: 10px;
+    padding-bottom: 20px;
+    margin: 20px;
+}

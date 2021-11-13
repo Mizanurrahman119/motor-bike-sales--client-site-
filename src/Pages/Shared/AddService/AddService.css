@@ -1,0 +1,15 @@
+.added-service form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.added-service form input, textarea{
+    width: 40%;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+.submit-button{
+    width: 10%;
+}

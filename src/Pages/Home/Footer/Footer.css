@@ -1,0 +1,9 @@
+.footer{
+    background-color: rgb(226, 62, 241);
+    color: azure;
+    padding: 15px;
+}
+.footer-icon{
+    padding: 10px 20px;
+    font-size: 36px;
+}
