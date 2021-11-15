@@ -16,7 +16,7 @@ const Purchases = () => {
         fetch(url)
         .then(res => res.json())
         .then(data => setPurchase(data));
-    },[])
+    },[user])
     return (
         <div>
             <h2>Purchases: {purchase.length}</h2>

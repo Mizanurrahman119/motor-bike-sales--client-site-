@@ -83,7 +83,7 @@ const useFirebase = () => {
             setIsLoading(false);
           });
           return () => unsubscribed;
-    },[])
+    },[auth])
 
     useEffect(() =>{
       fetch(`https://frozen-sierra-50215.herokuapp.com/users/${user.email}`)
