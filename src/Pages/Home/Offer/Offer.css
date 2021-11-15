@@ -1,0 +1,22 @@
+.offer-content{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+}
+.offer-image{
+    width: 70%;
+    border-radius: 10px;
+    background-color: rgb(252, 209, 118);
+    
+}
+
+@media only screen and (max-width: 688px) {
+    .offer-content{
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+@media only screen and (min-width: 688px) and (max-width: 991px){
+    .offer-content{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

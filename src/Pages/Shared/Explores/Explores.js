@@ -6,13 +6,13 @@ const Explores = () => {
     const [explores, setExplores]= useState([])
 
     useEffect(() =>{
-        fetch('http://localhost:5000/explores')
+        fetch('https://frozen-sierra-50215.herokuapp.com/explores')
             .then(res => res.json())
             .then(data => setExplores(data));
     },[]);
 
     const handleDelete = id => {
-        const url = `http://localhost:5000/explores/${id}`;
+        const url = `https://frozen-sierra-50215.herokuapp.com/explores/${id}`;
         fetch (url, {
             method: 'DELETE'
         })

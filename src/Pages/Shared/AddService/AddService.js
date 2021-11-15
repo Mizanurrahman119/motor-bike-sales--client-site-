@@ -8,7 +8,7 @@ const AddService = () => {
     const {register, handleSubmit, reset} = useForm();
     const onSubmit =  data => {
         console.log(data);
-        axios.post('http://localhost:5000/explores',data)
+        axios.post('https://frozen-sierra-50215.herokuapp.com/explores',data)
         .then(res => {
             if(res.data.insertedId){
                 alert('added successfully');
@@ -20,7 +20,7 @@ const AddService = () => {
     }
     return (
         <div className='added-service'>
-            <h2>Added Service</h2>
+            <h2 Style={{color: "fuchsia"}}>Add A Product</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
 
                 <input {...register('name', {require: true, maxlength:20})} placeholder='enter bike name' />

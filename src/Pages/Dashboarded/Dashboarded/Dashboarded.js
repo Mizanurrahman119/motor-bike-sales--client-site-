@@ -14,16 +14,31 @@ import ListItemText from '@mui/material/ListItemText';
 import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import { Grid } from '@mui/material';
-import Purchases from '../Purchases/Purchases';
+import { Link } from 'react-router-dom';
+import {
+  Switch,
+  Route,
+  useRouteMatch
+} from "react-router-dom";
+import MyOrders from '../MyOrders/MyOrders';
+import Review from '../Review/Review';
+import Pay from '../Pay/Pay';
+import MakeAdmin from '../MakeAdmin/MakeAdmin';
+import useAuth from '../../../Hooks/useAuth';
+import ManageProducts from '../ManageProducts/ManageProducts';
+import AddAllProducts from '../AddAllProducts/AddAllProducts';
+import ManageAllOrder from '../ManageAllOrder/ManageAllOrder';
+import LogOut from '../LogOut/LogOut';
+import AdminRoute from '../../Login/AdminRoute/AdminRoute';
 
-const drawerWidth = 200;
+const drawerWidth = 170;
 
 function ResponsiveDrawer(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
+  let { path, url } = useRouteMatch();
+  const {admin} = useAuth()
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -32,6 +47,27 @@ function ResponsiveDrawer(props) {
     <div>
       <Toolbar />
       <Divider />
+      <Link style={{margin:'10px',textDecoration:'none', fontSize:'18px',fontWeight:'bold'}} to={`${url}/myorder`}>My Order</Link><br />
+
+      <Link style={{margin:'10px',textDecoration:'none', fontSize:'18px',fontWeight:'bold'}} to={`${url}/review`}>Review</Link><br />
+
+      <Link style={{margin:'10px',textDecoration:'none', fontSize:'18px',fontWeight:'bold'}} to={`${url}/pay`}>Pay</Link><br />
+
+      <Link style={{margin:'10px',textDecoration:'none', fontSize:'18px',fontWeight:'bold'}} to={`${url}/logOut`}>Logout</Link>
+
+      
+      {
+        admin && <Box>
+            <Link style={{margin:'10px',textDecoration:'none', fontSize:'18px',fontWeight:'bold'}} to={`${url}/makeadmin`}>Make Admin</Link><br />
+
+            <Link style={{margin:'10px',textDecoration:'none', fontSize:'18px',fontWeight:'bold'}} to={`${url}/manageAllOrder`}>Manage All Orders</Link><br />
+
+            <Link style={{margin:'10px',textDecoration:'none', fontSize:'18px',fontWeight:'bold'}} to={`${url}/addProduct`}>Add A Product</Link><br />
+
+            <Link style={{margin:'10px',textDecoration:'none', fontSize:'18px',fontWeight:'bold'}} to={`${url}/manageProducts`}>Manage Products</Link>
+        </Box>
+      }
+
       <List>
         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
           <ListItem button key={text}>
@@ -106,14 +142,49 @@ function ResponsiveDrawer(props) {
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
         <Toolbar />
-        <Typography paragraph>
-          <Grid container spacing={1}>
-              <Grid items xs={12}>
-                  <Purchases></Purchases>
-              </Grid>
-          </Grid>
-        </Typography>
+        <Switch>
+        <Route exact path={path}>
+          <h2>Welcome To Your Dashboard Home</h2>
+        </Route>
 
+        <Route path={`${path}/myorder`}>
+          <MyOrders></MyOrders>
+        </Route>
+
+        <Route path={`${path}/review`}>
+          <Review></Review>
+        </Route>
+
+        <Route path={`${path}/logOut`}>
+          <LogOut></LogOut>
+        </Route>
+        
+        <Route path={`${path}/manageAllOrder`}>
+          <ManageAllOrder></ManageAllOrder>
+        </Route>
+
+        <Route path={`${path}/addProduct`}>
+          <AddAllProducts></AddAllProducts>
+        </Route>
+
+        <Route path={`${path}/manageProducts`}>
+          <ManageProducts></ManageProducts>
+        </Route>
+
+        <Route path={`${path}/logOut`}>
+          <Pay></Pay>
+        </Route>
+
+        <Route path={`${path}/pay`}>
+          <Pay></Pay>
+        </Route>
+
+        <AdminRoute path={`${path}/makeadmin`}>
+          <MakeAdmin></MakeAdmin>
+        </AdminRoute>
+
+
+      </Switch>
       </Box>
     </Box>
   );

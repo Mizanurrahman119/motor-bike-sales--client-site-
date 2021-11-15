@@ -12,7 +12,7 @@ const Purchases = () => {
     const {user} = useAuth();
     const [purchase, setPurchase] = useState([]);
     useEffect(() => {
-        const url = `http://localhost:5000/purchase?userEmail=${user.email}`
+        const url = `https://frozen-sierra-50215.herokuapp.com/purchase?userEmail=${user.email}`
         fetch(url)
         .then(res => res.json())
         .then(data => setPurchase(data));
