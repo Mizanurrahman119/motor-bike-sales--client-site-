@@ -3,8 +3,8 @@
 ## website name
 ### motorbike sales center
 
-## bulet point 
-### manu button click
+## bulet point :
+### click on manu button 
 ### explore buttton clikc 
 ### explore button private
 ### purchase button private
